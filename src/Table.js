@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Table.css";
 import { sort } from "./helpers/sort";
+import classnames from "classnames";
 
 class Table extends Component {
   state = {
@@ -68,50 +69,27 @@ class Table extends Component {
       <table class="table">
         <thead>
           <tr>
-            <th scope="col" onClick={() => this.sort("title")} className="w-50">
-              <div className="cell">
-                Title
-                {this.state.sortColumn === "title" ? (
-                  this.state.sortOrder === "asc" ? (
-                    <i class="fas fa-arrow-up" />
-                  ) : this.state.sortOrder === "desc" ? (
-                    <i class="fas fa-arrow-down" />
-                  ) : null
-                ) : null}
-              </div>
-            </th>
-            <th
-              scope="col"
-              onClick={() => this.sort("composer")}
-              className="w-25"
-            >
-              <div className="cell">
-                Composer
-                {this.state.sortColumn === "composer" ? (
-                  this.state.sortOrder === "asc" ? (
-                    <i class="fas fa-arrow-up" />
-                  ) : this.state.sortOrder === "desc" ? (
-                    <i class="fas fa-arrow-down" />
-                  ) : null
-                ) : null}
-              </div>
-            </th>
-            <th
-              scope="col"
-              onClick={() => this.sort("duration")}
-              className="w-25"
-            >
-              <div className="cell">
-                Duration
-                {this.state.sortColumn === "duration" ? (
-                  this.state.sortOrder === "asc" ? (
-                    <i class="fas fa-arrow-up" />
-                  ) : this.state.sortOrder === "desc" ? (
-                    <i class="fas fa-arrow-down" />
-                  ) : null
-                ) : null}
-              </div>
-            </th>
+            {Object.keys(this.state.rows[0]).map(key => (
+              <th
+                scope="col"
+                onClick={() => this.sort(key)}
+                className={classnames({
+                  "w-50": key === "title",
+                  "w-25": key !== "title"
+                })}
+              >
+                <div className="cell">
+                  {key.slice(0, 1).toUpperCase() + key.slice(1)}
+                  {this.state.sortColumn === key ? (
+                    this.state.sortOrder === "asc" ? (
+                      <i class="fas fa-arrow-up" />
+                    ) : this.state.sortOrder === "desc" ? (
+                      <i class="fas fa-arrow-down" />
+                    ) : null
+                  ) : null}
+                </div>
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody>
