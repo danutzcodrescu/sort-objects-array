@@ -1,0 +1,4 @@
+th .cell {
+  display: flex;
+  justify-content: space-between;
+}
