@@ -40,7 +40,7 @@ class Table extends Component {
       },
       { title: "Inward", composer: "Noah's Dark", duration: 411 },
       { title: "Şıkıdım", composer: "Tarkan Tevetoğlu", duration: 196 },
-      { title: "Orinocco flow", composer: "Enya", duration: 201 }
+      { title: "orinocco flow", composer: "enya", duration: 201 }
     ]
   };
 
@@ -54,7 +54,8 @@ class Table extends Component {
             ? "none"
             : "asc";
     }
-    const rows = sort(this.state.rows);
+    let rows = [...this.state.rows];
+    if (sortOrder !== "none") rows = sort(this.state.rows, sortOrder, column);
     this.setState({
       sortColumn: column,
       sortOrder,
@@ -67,7 +68,7 @@ class Table extends Component {
       <table class="table">
         <thead>
           <tr>
-            <th scope="col" onClick={() => this.sort("title")}>
+            <th scope="col" onClick={() => this.sort("title")} className="w-50">
               <div className="cell">
                 Title
                 {this.state.sortColumn === "title" ? (
@@ -79,7 +80,11 @@ class Table extends Component {
                 ) : null}
               </div>
             </th>
-            <th scope="col" onClick={() => this.sort("composer")}>
+            <th
+              scope="col"
+              onClick={() => this.sort("composer")}
+              className="w-25"
+            >
               <div className="cell">
                 Composer
                 {this.state.sortColumn === "composer" ? (
@@ -91,7 +96,11 @@ class Table extends Component {
                 ) : null}
               </div>
             </th>
-            <th scope="col" onClick={() => this.sort("duration")}>
+            <th
+              scope="col"
+              onClick={() => this.sort("duration")}
+              className="w-25"
+            >
               <div className="cell">
                 Duration
                 {this.state.sortColumn === "duration" ? (
